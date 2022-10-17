@@ -24,8 +24,7 @@ PokemonRow.propTypes = {
 
 function App() {
 
-  const [filter, filterSet] = React.useState("");
-
+  const [filter, filterSet] = React.useState("")
   return (
     <div style={{
       margin: "auto",
@@ -35,7 +34,7 @@ function App() {
       <h1 className='title '>Pokemon Search</h1>
       <input 
         value={filter}
-        
+        onChange={(e) => filterSet(e.target.value)}
       />
 
       <table width="100%">
@@ -46,7 +45,9 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {pokemon.slice(0,20).map(pokemon => (
+          {pokemon
+          .filter((pokemon) => pokemon.name.english.toLowerCase().includes(filter.toLowerCase()))
+          .slice(0,20).map(pokemon => (
             <PokemonRow
               pokemon={pokemon} 
               key={pokemon.id} 
